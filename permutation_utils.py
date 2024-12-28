@@ -6,6 +6,12 @@ import itertools
 
 
 def is_superpermutation(arr: npt.NDArray[np.int_], alphabet: Sequence[int]) -> bool:
+    """
+    Check if a given numpy array is a superpermutation of the given alphabet.
+    :param arr:
+    :param alphabet:
+    :return:
+    """
     possible_permutations = get_all_permutations(alphabet)
     tuple_array = tuple(arr)
 
@@ -20,11 +26,20 @@ def is_superpermutation(arr: npt.NDArray[np.int_], alphabet: Sequence[int]) -> b
     return False
 
 def get_all_permutations(alphabet: Sequence[int])->Sequence[Sequence[int]]:
-    # Returns in sorted order if alphabet is sorted
+    """
+    Returns permutations in sorted order if the alphabet is sorted
+    :param alphabet:
+    :return:
+    """
     return list(itertools.permutations(alphabet))
 
 def get_permutation_overlap(permutation1: Sequence[int], permutation2: Sequence[int]) -> int:
-    # Counts how many symbols between the two permutations overlap
+    """
+    Counts how many symbols between the two permutations overlap
+    :param permutation1:
+    :param permutation2:
+    :return:
+    """
     if permutation1 == permutation2:
         raise ValueError
 
@@ -35,6 +50,12 @@ def get_permutation_overlap(permutation1: Sequence[int], permutation2: Sequence[
 
 
 def merge_permutations(permutation1: Sequence[int], permutation2: Sequence[int]) -> Sequence[int]:
+    """
+    Merge permutations, e.g. [1,2],[2,1] --> [1,2,1]
+    :param permutation1:
+    :param permutation2:
+    :return:
+    """
     overlapping_symbols = get_permutation_overlap(permutation1, permutation2)
     seq = permutation1[:-overlapping_symbols]
     seq = list(seq)

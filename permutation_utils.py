@@ -42,6 +42,8 @@ def get_permutation_overlap(permutation1: Sequence[int], permutation2: Sequence[
     """
     if permutation1 == permutation2:
         raise ValueError
+    if len(permutation1)>len(permutation2):
+        permutation1 = permutation1[-len(permutation2):]
 
     for i in range(len(permutation1)):
         if permutation1[i:]==permutation2[:-i]:
@@ -52,6 +54,8 @@ def get_permutation_overlap(permutation1: Sequence[int], permutation2: Sequence[
 def merge_permutations(permutation1: Sequence[int], permutation2: Sequence[int]) -> Sequence[int]:
     """
     Merge permutations, e.g. [1,2],[2,1] --> [1,2,1]
+    Can also merge the the tail of a part of a superpermutation with a new permutation
+    e.g. [2,3,1,2,3],[3,2,1] --> [2,3,1,2,3,2,1]
     :param permutation1:
     :param permutation2:
     :return:

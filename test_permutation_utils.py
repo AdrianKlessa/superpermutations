@@ -58,10 +58,20 @@ class TestPermutationUtils(unittest.TestCase):
     def test_merge_permutations(self):
         perm1 = [1, 2, 3]
         perm2 = [3, 2, 1]
-        merged = [1,2,3,2,1]
+        merged = [1, 2, 3, 2, 1]
         self.assertEqual(merged, permutation_utils.merge_permutations(perm1, perm2))
 
         perm1 = [1, 2]
         perm2 = [2, 1]
-        merged = [1,2,1]
+        merged = [1, 2, 1]
+        self.assertEqual(merged, permutation_utils.merge_permutations(perm1, perm2))
+
+        perm1 = [2, 3, 1, 2, 3]
+        perm2 = [3, 2, 1]
+        merged = [2, 3, 1, 2, 3, 2, 1]
+        self.assertEqual(merged, permutation_utils.merge_permutations(perm1, perm2))
+
+        perm1 = [1, 2, 3, 1, 2]
+        perm2 = [2, 1, 3, 2, 1]
+        merged = [1, 2, 3, 1, 2, 1, 3, 2, 1]
         self.assertEqual(merged, permutation_utils.merge_permutations(perm1, perm2))

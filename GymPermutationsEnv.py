@@ -33,6 +33,10 @@ class GymPermutationEnv(gym.Env):
         return self.env.get_observation(), {}
 
     def step(self, action):
+        # TODO: Check if adding a permutation doesn't add a third permutation as well
+        # TODO: e.g. [1,2,3,4,5]+[3,4,5,1,2]-->[1,2,3,4,5,1,2]
+        # TODO: which contains both [1,2,3,4,5],[3,4,5,1,2] as well as [2,3,4,5,1]
+        # TODO: If yes, then add reward equal to the permutation length
         if self.env.permutations_added_array[action]:
             reward = -5
         else:

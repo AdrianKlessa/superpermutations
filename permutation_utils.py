@@ -17,21 +17,23 @@ def is_superpermutation(arr: npt.NDArray[np.int_], alphabet: Sequence[int]) -> b
 
     permutation_length = len(alphabet)
     found_permutations = set()
-    for i in range(len(tuple_array)-permutation_length+1):
-        sliding_window = tuple_array[i:i+permutation_length]
+    for i in range(len(tuple_array) - permutation_length + 1):
+        sliding_window = tuple_array[i:i + permutation_length]
         if sliding_window in possible_permutations:
             found_permutations.add(sliding_window)
             if len(found_permutations) == len(possible_permutations):
                 return True
     return False
 
-def get_all_permutations(alphabet: Sequence[int])->Sequence[Sequence[int]]:
+
+def get_all_permutations(alphabet: Sequence[int]) -> Sequence[Sequence[int]]:
     """
     Returns permutations in sorted order if the alphabet is sorted
     :param alphabet:
     :return:
     """
     return list(itertools.permutations(alphabet))
+
 
 def get_permutation_overlap(permutation1: Sequence[int], permutation2: Sequence[int]) -> int:
     """
@@ -42,12 +44,12 @@ def get_permutation_overlap(permutation1: Sequence[int], permutation2: Sequence[
     """
     if permutation1 == permutation2:
         raise ValueError
-    if len(permutation1)>len(permutation2):
+    if len(permutation1) > len(permutation2):
         permutation1 = permutation1[-len(permutation2):]
 
     for i in range(len(permutation1)):
-        if permutation1[i:]==permutation2[:-i]:
-            return len(permutation1)-i
+        if permutation1[i:] == permutation2[:-i]:
+            return len(permutation1) - i
     return 0
 
 
@@ -61,7 +63,9 @@ def merge_permutations(permutation1: Sequence[int], permutation2: Sequence[int])
     :return:
     """
     overlapping_symbols = get_permutation_overlap(permutation1, permutation2)
-    seq = permutation1[:-overlapping_symbols]
-    seq = list(seq)
+    if overlapping_symbols==0:
+        seq = list(permutation1)
+    else:
+        seq = list(permutation1[:-overlapping_symbols])
     seq.extend(permutation2)
     return seq

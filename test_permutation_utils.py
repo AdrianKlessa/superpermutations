@@ -55,6 +55,12 @@ class TestPermutationUtils(unittest.TestCase):
         actual_overlap = permutation_utils.get_permutation_overlap(seq1, seq2)
         self.assertEqual(3, actual_overlap)
 
+        seq1 = [3, 1, 2, 4, 3, 1, 3, 2, 4, 1, 3, 4, 2, 3, 1, 4, 3, 2, 1, 3, 1, 4, 2, 3, 2, 4, 1, 3, 4, 2, 1, 3, 4]
+        seq2 = [4, 1, 2, 3]
+
+        actual_overlap = permutation_utils.get_permutation_overlap(seq1, seq2)
+        self.assertEqual(1, actual_overlap)
+
     def test_merge_permutations(self):
         perm1 = [1, 2, 3]
         perm2 = [3, 2, 1]

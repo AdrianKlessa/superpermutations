@@ -91,3 +91,20 @@ class TestPermutationUtils(unittest.TestCase):
         perm2 = [2, 1, 3]
         merged = [1, 2, 3, 2, 1, 3]
         self.assertEqual(merged, permutation_utils.merge_permutations(perm1, perm2))
+
+    def test_get_permutation_ids_contained_in_symbols_string(self):
+        alphabet = [1,2,3,4,5]
+        string_of_symbols = [1,2,3,4,5,1,2]
+        expected_ids = [0,64,33]
+
+        # Order isn't important
+        actual_ids = permutation_utils.get_permutation_ids_contained_in_symbols_string(string_of_symbols,alphabet)
+        self.assertCountEqual(expected_ids, actual_ids)
+
+
+        alphabet = [1,2,3,4,5]
+        string_of_symbols = []
+        expected_ids = []
+
+        actual_ids = permutation_utils.get_permutation_ids_contained_in_symbols_string(string_of_symbols,alphabet)
+        self.assertCountEqual(expected_ids, actual_ids)

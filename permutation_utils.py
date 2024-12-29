@@ -53,6 +53,30 @@ def get_permutation_overlap(permutation1: Sequence[int], permutation2: Sequence[
     return 0
 
 
+def get_permutation_ids_contained_in_symbols_string(symbols_string: Sequence[int], alphabet: Sequence[int]) -> Sequence[
+    int]:
+    """
+    Get a list of permutations found in a string of symbols
+    :param symbols_string: String of symbols from a given alphabet
+    :param alphabet: List of possible symbols
+    :return: ids of the permutations found in the symbols string
+    """
+    possible_permutations = get_all_permutations(alphabet)
+    tuple_array = tuple(symbols_string)
+
+    permutation_length = len(alphabet)
+    found_permutations = set()
+    found_ids = set()
+    for i in range(len(tuple_array) - permutation_length + 1):
+        sliding_window = tuple_array[i:i + permutation_length]
+        if sliding_window in possible_permutations:
+            found_permutations.add(sliding_window)
+            found_ids.add(possible_permutations.index(sliding_window))
+            if len(found_permutations) == len(possible_permutations):
+                return list(found_ids)  # we already found all possible permutations
+    return list(found_ids)
+
+
 def merge_permutations(permutation1: Sequence[int], permutation2: Sequence[int]) -> Sequence[int]:
     """
     Merge permutations, e.g. [1,2],[2,1] --> [1,2,1]
@@ -63,7 +87,7 @@ def merge_permutations(permutation1: Sequence[int], permutation2: Sequence[int])
     :return:
     """
     overlapping_symbols = get_permutation_overlap(permutation1, permutation2)
-    if overlapping_symbols==0:
+    if overlapping_symbols == 0:
         seq = list(permutation1)
     else:
         seq = list(permutation1[:-overlapping_symbols])

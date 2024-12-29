@@ -33,18 +33,22 @@ class GymPermutationEnv(gym.Env):
         return self.env.get_observation(), {}
 
     def step(self, action):
-        # TODO: Check if adding a permutation doesn't add a third permutation as well
-        # TODO: e.g. [1,2,3,4,5]+[3,4,5,1,2]-->[1,2,3,4,5,1,2]
-        # TODO: which contains both [1,2,3,4,5],[3,4,5,1,2] as well as [2,3,4,5,1]
-        # TODO: If yes, then add reward equal to the permutation length
         if self.env.permutations_added_array[action]:
             reward = -5
         else:
             existing_permutation = self.env.state
             if existing_permutation:
+                permutations_before = self.env.permutations_added_array.copy()
                 added_permutation = self.env.possible_permutations[action]
                 reward = permutation_utils.get_permutation_overlap(existing_permutation, list(added_permutation))
                 self.env.add_permutation(action)
+
+                # Deal with the case when merging permutation A&B creates a string with A,B and C
+                permutations_after = self.env.permutations_added_array
+                permutations_diff = np.bitwise_xor(permutations_after, permutations_before)
+                number_of_differences = np.count_nonzero(permutations_diff)
+                if number_of_differences > 1:
+                    reward += len(self.env.alphabet)*(number_of_differences-1)
             else:
                 # No overlap since this is the first permutation to be added
                 reward = 0

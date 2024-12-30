@@ -76,6 +76,16 @@ def get_permutation_ids_contained_in_symbols_string(symbols_string: Sequence[int
                 return list(found_ids)  # we already found all possible permutations
     return list(found_ids)
 
+def get_possible_relabellings(symbols_string: Sequence[int], alphabet: Sequence[int]) -> Sequence[Sequence[int]]:
+    possible_permutations = get_all_permutations(alphabet)
+    labellings = []
+    for permutation in possible_permutations:
+        seq = []
+        for symbol in symbols_string:
+            seq.append(permutation[symbol-1]) # 0 not used as a symbol so -1
+        labellings.append(seq)
+    return labellings
+
 
 def merge_permutations(permutation1: Sequence[int], permutation2: Sequence[int]) -> Sequence[int]:
     """
@@ -93,3 +103,24 @@ def merge_permutations(permutation1: Sequence[int], permutation2: Sequence[int])
         seq = list(permutation1[:-overlapping_symbols])
     seq.extend(permutation2)
     return seq
+
+
+def check_inform_length(alphabet_size, superpermutation):
+    superpermutation_length = len(superpermutation)
+    superpermutation_sizes = {
+        2: 3,
+        3: 9,
+        4: 33,
+        5: 153,
+        6: 872,
+        7: 5906,
+        8: 46205,
+        9: 408966
+    }
+
+    if superpermutation_length <= superpermutation_sizes[alphabet_size]:
+        print(f"Below/at upper bound found for n={alphabet_size}:")
+        print(superpermutation)
+    elif superpermutation_length <= (superpermutation_sizes[alphabet_size] + 10):
+        print(f"Close to upper bound (but above) for n={alphabet_size}:")
+        print(superpermutation)

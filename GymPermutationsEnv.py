@@ -48,7 +48,7 @@ class GymPermutationEnv(gym.Env):
 
     def step(self, action):
         if self.env.permutations_added_array[action]:
-            reward = -5
+            reward = -1
         else:
             existing_permutation = self.env.state
             if existing_permutation:
@@ -67,6 +67,7 @@ class GymPermutationEnv(gym.Env):
                 # No overlap since this is the first permutation to be added
                 reward = 0
                 self.env.add_permutation(action)
+            reward/=self.alphabet_size # Normalize reward
 
         terminated = permutation_utils.is_superpermutation(np.array(self.env.state),
                                                            self.alphabet)  # TODO: Remove casting

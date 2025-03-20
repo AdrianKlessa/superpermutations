@@ -108,3 +108,13 @@ class TestPermutationUtils(unittest.TestCase):
 
         actual_ids = permutation_utils.get_permutation_ids_contained_in_symbols_string(string_of_symbols,alphabet)
         self.assertCountEqual(expected_ids, actual_ids)
+
+    def test_get_max_possible_reward(self):
+        alphabet_size_1 = 4
+        alphabet_size_2 = 5
+
+        known_upper_bound_1 = 33
+        known_upper_bound_2 = 153
+
+        assert permutation_utils.get_max_possible_reward(alphabet_size_1, known_upper_bound_1) == 63
+        assert permutation_utils.get_max_possible_reward(alphabet_size_2, known_upper_bound_2) == 447

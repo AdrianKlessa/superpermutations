@@ -1,3 +1,4 @@
+import math
 from typing import Sequence
 
 import numpy as np
@@ -124,3 +125,7 @@ def check_inform_length(alphabet_size, superpermutation):
     elif superpermutation_length <= (superpermutation_sizes[alphabet_size] + 10):
         print(f"Close to upper bound (but above) for n={alphabet_size}:")
         print(superpermutation)
+
+def get_max_possible_reward(alphabet_size: int, known_upper_bound: int)-> int:
+    return (math.factorial(alphabet_size)*alphabet_size)-known_upper_bound
+

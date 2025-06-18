@@ -1,13 +1,12 @@
 ### Superpermutations
 
-This repository contains various scripts related to looking for the shortest superpermutations, aka the *Haruhi problem*
-
-The `superpermutations for n4.ipynb` file contains a proof-of-concept of using the Proximal Policy Optimization RL algorithm to find the shortest superpermutation on an alphabet with 4 symbols.
+A Gymnasium environment and code examples for experiments with looking for short superpermutations using reinforcement learning
 
 ### Tools used:
 
 * Gymnasium API was used to create a reinforcement learning environment compatible with other libraries
 * Stable Baselines3 was used to train RL agents on the aforementioned environment
+* MLFlow is used to keep track of experiments
 
 ### Included files:
 
@@ -15,6 +14,7 @@ The `superpermutations for n4.ipynb` file contains a proof-of-concept of using t
 * `permutation_env` contains a custom class that contains all necessary information and methods for building a superpermutation step-by-step by appending (with overlaps) new permutations
 * `GymPermutationEnv` is a wrapper over `permutation_env` providing support for the Gymnasium API used by Stable Baselines3
 * `superpermutations for n4` is a Jupyter notebook with a POC for generating the shortest superpermutation for n=4
+* `superpermutations for n5` contains observations from an analogous attempt for an alphabet with 5 characters
 
 ### Observation / action format
 

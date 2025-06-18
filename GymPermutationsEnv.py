@@ -78,11 +78,12 @@ class GymPermutationEnv(gym.Env):
         if self.truncate_episodes and self.step_count > self.bound_sizes[self.alphabet_size]:
             truncated = True
 
+        info = {}
         # TODO: Give reward for finishing superpermutation?
         if terminated:
             permutation_utils.check_inform_length(len(self.alphabet), self.env.state)
-
-        info = {}
+            info["superpermutation"] = self.env.state
+            info["superpermutation_length"] = len(self.env.state)
 
         return (
             self.env.get_observation(),

@@ -1,0 +1,4 @@
+stable_baselines3==2.4.0
+mlflow==2.20.0
+numpy==2.2.1
+gymnasium==1.0.0
